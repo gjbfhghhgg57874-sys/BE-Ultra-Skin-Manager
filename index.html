@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10091d">
+<title>BE destiny of Ultra Skin Manager</title>
+<style>
+:root {
+  --bg:#0b0712;
+  --panel:#171020;
+  --purple:#a855f7;
+  --pink:#f0abfc;
+  --text:#f8f3ff;
+  --muted:#b7a9c9;
+  --line:#39264d;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:
+  radial-gradient(ellipse at 20% 0%,#35124f 0,transparent 42%),
+  radial-gradient(ellipse at 100% 55%,#20103b 0,transparent 45%),
+  var(--bg);
+  color:var(--text);font-family:system-ui,-apple-system,sans-serif;
+  min-height:100vh;overflow-x:hidden
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.crystals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.crystal{
+ position:absolute;width:15px;height:25px;
+ background:linear-gradient(135deg,#fff,#d8a3ff 35%,#7728b5 70%,#2c1240);
+ clip-path:polygon(50% 0,100% 30%,80% 100%,20% 100%,0 30%);
+ opacity:.45;filter:drop-shadow(0 0 8px #bd64ff);
+ animation:float 9s ease-in-out infinite alternate
+}
+@keyframes float{from{transform:translateY(15px) rotate(0)}to{transform:translateY(-65px) rotate(35deg)}}
+header,.container,footer{position:relative;z-index:1}
+header{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:17px 16px;border-bottom:1px solid #ffffff12;
+ background:#10091dcc;backdrop-filter:blur(18px);
+ position:sticky;top:0;z-index:5
+}
+.brand{display:flex;gap:10px;align-items:center;font-weight:850;letter-spacing:-.4px}
+.logo{
+ width:42px;height:42px;border-radius:15px;
+ display:grid;place-items:center;font-size:23px;font-weight:950;
+ background:linear-gradient(145deg,#f0abfc,#8739d1 55%,#35144d);
+ color:white;box-shadow:0 0 25px #a855f755
+}
+.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:1.5px}
+.iconbtn{
+ width:44px;height:44px;border:1px solid var(--line);border-radius:15px;
+ background:#20152b;color:white;font-size:22px
+}
+.container{max-width:760px;margin:auto;padding:18px 15px 45px}
+.hero{
+ position:relative;padding:28px 21px 25px;border:1px solid #70439766;
+ border-radius:28px;overflow:hidden;
+ background:linear-gradient(140deg,#301447dd,#171020ed 60%,#21102f);
+ box-shadow:0 20px 60px #0005
+}
+.tag{
+ display:inline-flex;align-items:center;gap:7px;border:1px solid #b76cff55;
+ border-radius:50px;padding:7px 11px;color:#e9c8ff;font-size:11px;
+ background:#a855f71a
+}
+.hero h1{font-size:clamp(27px,7vw,43px);line-height:1.14;margin:19px 0 12px;letter-spacing:-1.5px}
+.gradient{background:linear-gradient(90deg,#fff,#e2b8ff,#b76bff);color:transparent;background-clip:text}
+.hero p{color:#c9bad8;font-size:14px;line-height:1.8;margin:0 0 20px}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{
+ border:1px solid #654080;border-radius:14px;padding:12px 15px;
+ color:white;background:#241431;font-weight:750
+}
+.btn.primary{background:linear-gradient(110deg,#a855f7,#7628b5);border-color:#bd7aff;box-shadow:0 5px 25px #a855f733}
+.section{margin-top:24px}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-title h2{font-size:17px;margin:0}
+.section-title span{font-size:11px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.card{
+ border:1px solid var(--line);background:#171020ed;border-radius:20px;
+ padding:17px 14px;text-align:left;color:white;min-height:120px;
+ transition:transform .2s,border-color .2s
+}
+.card:active{transform:scale(.97)}
+.card .emoji{font-size:25px;display:block;margin-bottom:12px}
+.card strong{display:block;font-size:14px}
+.card small{display:block;color:var(--muted);font-size:11px;margin-top:6px;line-height:1.5}
+.panel{
+ border:1px solid var(--line);background:#171020f2;border-radius:22px;
+ padding:17px;margin-top:15px
+}
+.panel h2{font-size:19px;margin:0 0 7px}
+.panel p,.hint{color:var(--muted);font-size:12px;line-height:1.7}
+label{display:block;font-size:12px;color:#dfd0ed;margin:15px 0 7px}
+input[type=text],input[type=search]{
+ width:100%;padding:13px 14px;background:#0d0913;color:white;
+ border:1px solid #49315e;border-radius:13px;outline:none
+}
+input:focus{border-color:#bd76ff;box-shadow:0 0 0 3px #a855f71c}
+input[type=file]{width:100%;font-size:12px;color:var(--muted);margin:10px 0}
+.skinlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}
+.skin{
+ min-width:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+ background:#100b18;position:relative
+}
+.skin img{width:100%;height:145px;object-fit:contain;background:linear-gradient(#251333,#100b18);image-rendering:pixelated}
+.skin-info{padding:10px}
+.skin-info strong{font-size:12px;display:block;overflow-wrap:anywhere}
+.skin-info small{font-size:10px;color:var(--muted)}
+.skin-actions{display:flex;gap:6px;margin-top:8px}
+.skin-actions button{flex:1;font-size:11px;padding:7px 4px;border-radius:9px}
+.empty{padding:20px;text-align:center;color:var(--muted);font-size:12px;border:1px dashed #49315e;border-radius:15px}
+.page{display:none}
+.page.active{display:block;animation:appear .25s ease}
+@keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.notice{padding:12px 13px;border-radius:13px;background:#a855f718;border:1px solid #a855f744;color:#e9d7ff;font-size:12px;line-height:1.7;margin-top:12px}
+.menu{
+ position:fixed;inset:0;background:#050309b8;z-index:20;display:none;
+ align-items:flex-start;justify-content:flex-end;padding:70px 14px 14px
+}
+.menu.open{display:flex}
+.menu-box{width:min(330px,100%);padding:18px;border-radius:23px;background:#1a1025;border:1px solid #674183;box-shadow:0 20px 80px #0009}
+.menu-box h3{margin:0 0 13px}
+.menu-item{width:100%;padding:13px;text-align:left;border:0;border-radius:12px;background:transparent;color:white;margin:2px 0}
+.menu-item:hover{background:#a855f725}
+.menu-ad{padding:14px;border:1px dashed #654080;border-radius:14px;color:#c9bad8;font-size:12px;margin-top:13px;line-height:1.6}
+footer{text-align:center;color:#82718f;font-size:10px;padding:22px 10px}
+hr{border:0;border-top:1px solid #ffffff12;margin:17px 0}
+@media(min-width:600px){.container{padding-top:28px}.hero{padding:38px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.skinlist{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="crystals" id="crystals"></div>
+<header>
+ <div class="brand">
+  <div class="logo">A</div>
+  <div>BE destiny <small>ULTRA SKIN MANAGER</small></div>
+ </div>
+ <button class="iconbtn" id="menuOpen" aria-label="เปิดเมนู">☰</button>
+</header>
+
+<main class="container">
+<section class="page active" id="home">
+ <div class="hero">
+  <div class="tag">✦ BEDROCK SKIN STUDIO</div>
+  <h1>ยินดีต้อนรับ<br><span class="gradient">ผู้มาเจอบัค</span></h1>
+  <p>พื้นที่จัดการสกิน Minecraft Bedrock ของคุณ<br>อัปโหลด · จัดเก็บ · เลือก · ส่งออก</p>
+  <div class="actions">
+   <button class="btn primary" data-go="upload">＋ เพิ่มสกิน</button>
+   <button class="btn" data-go="skins">▦ สกินในลิสต์</button>
+  </div>
+ </div>
+ <div class="section">
+  <div class="section-title"><h2>✦ เมนูหลัก</h2><span>YOUR SKIN SPACE</span></div>
+  <div class="grid">
+   <button class="card" data-go="help"><span class="emoji">📖</span><strong>วิธีใช้งาน?</strong><small>เริ่มต้นใช้งานทีละขั้นตอน</small></button>
+   <button class="card" data-go="upload"><span class="emoji">🖼️</span><strong>ลงสกิน</strong><small>เพิ่มรูป PNG จากมือถือ</small></button>
+   <button class="card" data-go="skins"><span class="emoji">💎</span><strong>สกินในลิสต์</strong><small>ดูและเลือกสกินที่บันทึกไว้</small></button>
+   <button class="card" data-go="export"><span class="emoji">📦</span><strong>ส่งออกแพ็ก</strong><small>เตรียมแพ็กสำหรับ Minecraft</small></button>
+   <button class="card" data-go="contact"><span class="emoji">💌</span><strong>ช่องทางติดต่อ</strong><small>ข้อมูลติดต่อของโปรเจกต์</small></button>
+  </div>
+ </div>
+ <div class="notice">💜 ข้อมูลสกินในเวอร์ชันนี้เก็บไว้ในเบราว์เซอร์เครื่องนี้ หากล้างข้อมูลเว็บไซต์ อาจทำให้รายการหายได้</div>
+</section>
+
+<section class="page" id="help">
+ <div class="panel">
+  <h2>📖 วิธีใช้งาน</h2>
+  <p>ทำตามขั้นตอนต่อไปนี้เพื่อเตรียมสกินของคุณ</p>
+  <hr>
+  <p><b>01 — เพิ่มสกิน</b><br>เปิดเมนู “ลงสกิน” แล้วเลือกรูป PNG จากเครื่อง รูปต้องมีขนาด 64×64 หรือ 64×32 ซึ่งเป็นขนาดพื้นฐานที่ใช้กับสกิน Bedrock</p>
+  <p><b>02 — ตั้งชื่อ</b><br>ตั้งชื่อสกิน และกรอก Gamertag หากต้องการใช้เป็นข้อมูลกำกับรายการ</p>
+  <p><b>03 — เลือกสกิน</b><br>เปิด “สกินในลิสต์” แล้วกดเลือกสกินที่ต้องการส่งออก</p>
+  <p><b>04 — ส่งออก</b><br>ไปที่ “ส่งออกแพ็ก” เพื่อดาวน์โหลดไฟล์แพ็กสกิน</p>
+  <div class="notice">หมายเหตุ: Gamertag เป็นเพียงข้อมูลกำกับ ไม่ได้เปลี่ยนสกินของบัญชี Xbox หรือผู้เล่นอื่นโดยอัตโนมัติ</div>
+ </div>
+ <button class="btn primary" data-go="upload" style="margin-top:14px">เริ่มเพิ่มสกิน →</button>
+</section>
+
+<section class="page" id="upload">
+ <div class="panel">
+  <h2>🖼️ ลงสกินใหม่</h2>
+  <p>เลือกรูปสกิน PNG จากอุปกรณ์ของคุณ</p>
+  <label for="skinName">ชื่อสกิน</label>
+  <input id="skinName" type="text" maxlength="40" placeholder="เช่น My Ultra Skin">
+  <label for="gamertag">Xbox Gamertag (ไม่บังคับ)</label>
+  <input id="gamertag" type="text" maxlength="40" placeholder="กรอกชื่อ Gamertag ของคุณ">
+  <label for="skinFile">ไฟล์สกิน PNG</label>
+  <input id="skinFile" type="file" accept="image/png,.png">
+  <div class="hint">รองรับรูป PNG ขนาด 64×64 หรือ 64×32 เพื่อให้ตรงกับรูปแบบสกินพื้นฐานของ Bedrock</div>
+  <button class="btn primary" id="saveSkin" style="width:100%;margin-top:13px">＋ บันทึกสกิน</button>
+  <div id="uploadMessage" class="hint" aria-live="polite"></div>
+ </div>
+</section>
+
+<section class="page" id="skins">
+ <div class="section-title" style="margin-top:8px"><h2>💎 สกินในลิสต์</h2><span id="skinCount">0 รายการ</span></div>
+ <input type="search" id="skinSearch" placeholder="ค้นหาชื่อสกิน...">
+ <div class="hint">แตะ “เลือกส่งออก” เพื่อเลือกสกินได้หลายรายการ</div>
+ <div class="skinlist" id="skinList"></div>
+ <div class="actions" style="margin-top:16px">
+  <button class="btn primary" data-go="export">ไปหน้าส่งออก →</button>
+  <button class="btn" data-go="upload">＋ เพิ่มสกิน</button>
+ </div>
+</section>
+
+<section class="page" id="export">
+ <div class="panel">
+  <h2>📦 ส่งออกแพ็กสกิน</h2>
+  <p>ตรวจสอบรายการที่เลือกก่อนสร้างไฟล์สำหรับนำเข้า Minecraft Bedrock</p>
+  <div id="exportList" class="empty">ยังไม่ได้เลือกสกิน</div>
+  <div class="notice">ไฟล์ที่สร้างเป็น Skin Pack (.mcpack) ซึ่งเป็นรูปแบบที่เหมาะกับแพ็กสกิน Bedrock มากกว่า .mcaddon ทั่วไป</div>
+  <button class="btn primary" id="exportBtn" style="width:100%;margin-top:15px">⬇ สร้างไฟล์ .mcpack</button>
+  <p class="hint">การสร้างแพ็กต้องใช้อินเทอร์เน็ตเพื่อโหลดไลบรารีบีบอัดไฟล์ในเบราว์เซอร์</p>
+ </div>
+</section>
+
+<section class="page" id="contact">
+ <div class="panel" style="text-align:center;padding:32px 18px">
+  <div style="font-size:42px">💌</div>
+  <h2>ช่องทางติดต่อ</h2>
+  <p>(เดี๋ยวค่อยเพิ่ม)</p>
+  <div class="notice">ช่องทางติดต่อจะเพิ่มในเวอร์ชันถัดไป</div>
+ </div>
+</section>
+</main>
+
+<footer>BE DESTINY OF ULTRA SKIN MANAGER · BEDROCK SKIN STUDIO</footer>
+
+<div class="menu" id="menu">
+ <div class="menu-box">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+   <h3>✦ เมนู</h3><button class="iconbtn" id="menuClose">×</button>
+  </div>
+  <button class="menu-item" data-go="home">⌂ หน้าแรก</button>
+  <button class="menu-item" data-go="help">📖 วิธีใช้งาน?</button>
+  <button class="menu-item" data-go="upload">🖼️ ลงสกิน</button>
+  <button class="menu-item" data-go="skins">💎 สกินในลิสต์</button>
+  <button class="menu-item" data-go="export">📦 ส่งออกแพ็ก</button>
+  <button class="menu-item" data-go="contact">💌 ช่องทางติดต่อ</button>
+  <div class="menu-ad">พื้นที่เมนู / โฆษณา<br><b>XDไอค#าย กูไม่รับเว็บพนันเน่าๆ</b></div>
+ </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const DB = "bedestiny_skin_manager_v1";
+let skins = [];
+let selected = new Set();
+
+try { skins = JSON.parse(localStorage.getItem(DB) || "[]"); } catch(e) { skins = []; }
+
+for(let i=0;i<22;i++){
+ const c=document.createElement("i");
+ c.className="crystal";
+ c.style.left=(Math.random()*100)+"%";
+ c.style.top=(Math.random()*100)+"%";
+ c.style.animationDelay=(-Math.random()*9)+"s";
+ c.style.animationDuration=(6+Math.random()*8)+"s";
+ c.style.transform="scale("+(0.5+Math.random()*1.3)+")";
+ $("crystals").appendChild(c);
+}
+
+function persist(){
+ try { localStorage.setItem(DB,JSON.stringify(skins)); }
+ catch(e) { alert("พื้นที่เก็บข้อมูลไม่พอ กรุณาลบสกินบางรายการแล้วลองใหม่"); }
+}
+function go(page){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ const target=$(page);
+ if(target) target.classList.add("active");
+ $("menu").classList.remove("open");
+ if(page==="skins") renderSkins();
+ if(page==="export") renderExport();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+$("menuOpen").onclick=()=>$("menu").classList.add("open");
+$("menuClose").onclick=()=>$("menu").classList.remove("open");
+$("menu").addEventListener("click",e=>{if(e.target===$("menu")) $("menu").classList.remove("open");});
+
+function renderSkins(){
+ const query=$("skinSearch").value.trim().toLowerCase();
+ const list=$("skinList");
+ list.innerHTML="";
+ const filtered=skins.filter(s=>(s.name+" "+s.gamertag).toLowerCase().includes(query));
+ $("skinCount").textContent=skins.length+" รายการ";
+ if(!filtered.length){
+  list.innerHTML='<div class="empty" style="grid-column:1/-1">ยังไม่มีสกินที่ตรงกับรายการ 💜</div>';return;
+ }
+ filtered.forEach(s=>{
+  const card=document.createElement("article");card.className="skin";
+  const img=document.createElement("img");img.src=s.data;img.alt=s.name;
+  const info=document.createElement("div");info.className="skin-info";
+  const name=document.createElement("strong");name.textContent=s.name;
+  const tag=document.createElement("small");tag.textContent=s.gamertag?"Gamertag: "+s.gamertag:"ไม่ได้ระบุ Gamertag";
+  const actions=document.createElement("div");actions.className="skin-actions";
+  const select=document.createElement("button");select.className="btn "+(selected.has(s.id)?"primary":"");
+  select.textContent=selected.has(s.id)?"✓ เลือกแล้ว":"เลือกส่งออก";
+  select.onclick=()=>{selected.has(s.id)?selected.delete(s.id):selected.add(s.id);renderSkins();};
+  const del=document.createElement("button");del.className="btn";del.textContent="ลบ";
+  del.onclick=()=>{if(confirm("ลบสกิน "+s.name+" หรือไม่?")){skins=skins.filter(x=>x.id!==s.id);selected.delete(s.id);persist();renderSkins();}};
+  actions.append(select,del);info.append(name,tag,actions);card.append(img,info);list.append(card);
+ });
+}
+$("skinSearch").addEventListener("input",renderSkins);
+
+$("saveSkin").onclick=async()=>{
+ const file=$("skinFile").files[0];
+ const name=$("skinName").value.trim();
+ const message=$("uploadMessage");
+ message.textContent="";
+ if(!file){message.textContent="กรุณาเลือกรูป PNG ก่อน";return;}
+ if(file.type!=="image/png"&&!file.name.toLowerCase().endsWith(".png")){message.textContent="รองรับเฉพาะไฟล์ PNG";return;}
+ if(file.size>5*1024*1024){message.textContent="ไฟล์ใหญ่เกินไป (สูงสุด 5 MB)";return;}
+ if(!name){message.textContent="กรุณาตั้งชื่อสกิน";return;}
+ try{
+  const data=await new Promise((resolve,reject)=>{
+   const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file);
+  });
+  const img=await new Promise((resolve,reject)=>{
+   const image=new Image();image.onload=()=>resolve(image);image.onerror=reject;image.src=data;
+  });
+  if(!((img.width===64&&img.height===64)||(img.width===64&&img.height===32))){
+   message.textContent="ขนาดรูปไม่ถูกต้อง: ใช้ 64×64 หรือ 64×32 พิกเซล";return;
+  }
+  skins.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),name,gamertag:$("gamertag").value.trim(),data,width:img.width,height:img.height});
+  persist();
+  $("skinName").value="";$("gamertag").value="";$("skinFile").value="";
+  message.textContent="บันทึกสกินแล้ว! 💜";
+ }catch(e){message.textContent="อ่านรูปไม่สำเร็จ กรุณาลองไฟล์อื่น";}
+};
+
+function renderExport(){
+ const box=$("exportList");
+ const chosen=skins.filter(s=>selected.has(s.id));
+ if(!chosen.length){box.className="empty";box.textContent="ยังไม่ได้เลือกสกิน";return;}
+ box.className="panel";box.innerHTML="";
+ chosen.forEach(s=>{
+  const row=document.createElement("div");
+  row.style.cssText="display:flex;gap:10px;align-items:center;margin:8px 0;font-size:12px";
+  const img=document.createElement("img");img.src=s.data;img.style.cssText="width:42px;height:42px;object-fit:contain;background:#241431;border-radius:8px;image-rendering:pixelated";
+  const title=document.createElement("span");title.textContent=s.name;
+  row.append(img,title);box.append(row);
+ });
+}
+
+$("exportBtn").onclick=async()=>{
+ const chosen=skins.filter(s=>selected.has(s.id));
+ if(!chosen.length){alert("กรุณาเลือกสกินอย่างน้อย 1 รายการก่อน");return;}
+ const btn=$("exportBtn");btn.disabled=true;btn.textContent="กำลังเตรียมไฟล์...";
+ try{
+  if(!window.JSZip){
+   await new Promise((resolve,reject)=>{
+    const script=document.createElement("script");
+    script.src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
+    script.onload=resolve;script.onerror=()=>reject(new Error("โหลดไลบรารีไม่สำเร็จ"));
+    document.head.appendChild(script);
+   });
+  }
+  const zip=new JSZip();
+  const uuid=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==="x"?r:(r&3|8)).toString(16)});
+  const packId=uuid();
+  const skinDefs=[];
+  for(let i=0;i<chosen.length;i++){
+   const s=chosen[i],filename="skin_"+(i+1)+".png";
+   const base64=s.data.split(",")[1];
+   zip.file(filename,base64,{base64:true});
+   skinDefs.push({localization_name:"skin_"+(i+1),geometry:s.width===64&&s.height===32?"geometry.humanoid.custom":"geometry.humanoid.custom",texture:filename, type:"free", animations:"", cape:"", premium:false});
+  }
+  zip.file("manifest.json",JSON.stringify({
+   format_version:1,
+   header:{name:"BE destiny Ultra Skin Pack",version:[1,0,0],uuid:packId},
+   modules:[{type:"skin_pack",version:[1,0,0],uuid:uuid()}]
+  },null,2));
+  zip.file("skins.json",JSON.stringify({serialize_name:"BE Destiny Ultra",localization_name:"BE Destiny Ultra",skins:skinDefs},null,2));
+  const lang=["skinpack.be_destiny.name=BE Destiny Ultra","skinpack.be_destiny.skin_1=Ultra Skin"];
+  zip.file("texts/en_US.lang",lang.join("\n")+"\n");
+  zip.file("texts/languages.json",JSON.stringify(["en_US"]));
+  const blob=await zip.generateAsync({type:"blob"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");a.href=url;a.download="BE_Destiny_Ultra_Skin_Pack.mcpack";document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),3000);
+  alert("สร้างไฟล์แล้ว! โปรดทดสอบนำเข้า Minecraft Bedrock หากนำเข้าไม่ได้ แพ็กอาจต้องปรับโครงสร้างให้ตรงกับเวอร์ชันเกมของคุณ");
+ }catch(e){
+  alert("สร้างไฟล์ไม่สำเร็จ: "+e.message+"\nตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง");
+ }finally{btn.disabled=false;btn.textContent="⬇ สร้างไฟล์ .mcpack";}
+};
+</script>
+</body>
+   </html>
