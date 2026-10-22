@@ -1,0 +1,14 @@
+{
+"appName": "BE Ultra Skin Manager",
+"schemaVersion": 1,
+"skins": [
+{
+"gamertag": "ExamplePlayer",
+"displayName": "Example Skin",
+"imageUri": "",
+"sourceWidth": 128,
+"sourceHeight": 128,
+"notes": "Example only. Image dimensions do not guarantee Bedrock compatibility."
+}
+]
+}
