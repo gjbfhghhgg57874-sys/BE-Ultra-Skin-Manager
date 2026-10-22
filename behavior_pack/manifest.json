@@ -1,0 +1,25 @@
+{
+"format_version": 2,
+"header": {
+"name": "BE Ultra Skin Manager",
+"description": "BE Ultra Skin Manager Behavior Pack",
+"uuid": "6f2c8a91-4d73-4e0b-9b52-81a6c3d7e204",
+"version": [1, 0, 0],
+"min_engine_version": [1, 21, 0]
+},
+"modules": [
+{
+"type": "script",
+"language": "javascript",
+"uuid": "b3e7d291-8c54-4a6f-a102-5d9e7c31f840",
+"version": [1, 0, 0],
+"entry": "scripts/main.js"
+}
+],
+"dependencies": [
+{
+"module_name": "@minecraft/server",
+"version": "1.13.0"
+}
+]
+}
